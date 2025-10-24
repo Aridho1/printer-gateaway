@@ -35,4 +35,4 @@ io.on("connection", (socket) => {
 	});
 });
 
-httpServer.listen(3000, () => console.log("🚀 Print Gateway ready on port 3000"));
+// httpServer.listen(3000, () => console.log("🚀 Print Gateway ready on port 3000"));
