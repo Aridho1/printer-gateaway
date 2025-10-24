@@ -1,12 +1,12 @@
 import { Server } from "socket.io";
+import { createServer } from "http";
 
-let io;
+let io; // biar nggak keinit 2x waktu cold start
 
 export default function handler(req, res) {
 	if (!io) {
-		console.log("🚀 Socket.IO server starting...");
-
-		io = new Server(res.socket.server, {
+		const httpServer = createServer();
+		io = new Server(httpServer, {
 			cors: { origin: "*" },
 		});
 
@@ -35,7 +35,9 @@ export default function handler(req, res) {
 				console.log(`[DISCONNECT] ${socket.id}`);
 			});
 		});
+
+		console.log("✅ Socket.IO gateway initialized on Vercel");
 	}
 
-	res.end();
+	res.status(200).json({ message: "Socket.IO gateway running." });
 }
